@@ -1,17 +1,70 @@
-import { Container, Row } from 'react-bootstrap';
+import { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import products from '../data/products';
 import ProductCard from '../components/organisms/ProductCard';
-
+import SearchBar from '../components/molecules/SearchBar';
+import CategoryFilter from '../components/molecules/CategoryFilter';
+import PriceFilter from '../components/molecules/PriceFilter';
 
 function Products() {
+  const precios = products.map((p) => p.price);
+  const minPrice = Math.floor(Math.min(...precios));
+  const maxPrice = Math.ceil(Math.max(...precios));
+  
+
+  const [preciMax, setPrecioMax] = useState(maxPrice);
+
+  const [busqueda, setBusqueda] = useState('');
+  const [seleccionadas, setSeleccionadas] = useState([]);
+
+  const categorias =[ ...new Set(products.map((product) => product.categoria))];
+
+  const toggleCategoria = (cat) => {
+    setSeleccionadas((prev) =>
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
+    );
+  };
+
+
+  const filtrados = products.filter((product) =>{
+    const coincideNombre=product.name
+      .toLowerCase()
+      .includes(busqueda.toLowerCase());
+    const coincideCategoria =
+      seleccionadas.length === 0 || seleccionadas.includes(product.categoria);
+    const coincidePrecio = product.price <= preciMax;  
+    return coincideNombre && coincideCategoria && coincidePrecio;
+
+  }
+     
+   );
+
  return (
    <Container className="my-5">
      <h1>Productos</h1>
+     <SearchBar value={busqueda} onChange={setBusqueda}/>
      <Row>
-       {products.map((product) => (
-         <ProductCard key={product.id} product={product} />
-       ))}
-     </Row>
+        <Col md={3}>
+          <PriceFilter
+            min={minPrice}
+            max={maxPrice}
+            value={preciMax}
+            onChange={setPrecioMax}
+          />
+          <CategoryFilter
+            categorias={categorias}
+            seleccionadas={seleccionadas}
+            onToggle={toggleCategoria}
+          />
+        </Col>
+        <Col md={9}>
+          <Row>
+            {filtrados.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))} 
+          </Row>
+        </Col>
+      </Row>
    </Container>
  );
 }

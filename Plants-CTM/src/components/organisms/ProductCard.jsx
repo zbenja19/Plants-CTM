@@ -17,6 +17,7 @@ function ProductCard({ product }) {
          title={product.name}
          description={product.description}
          price={product.price}
+         OriginalPrice={product.precioOriginal}
        />
        <Button variant="primary" onClick={() => navigate(`/products/${product.id}`)}>
          Ver detalles
