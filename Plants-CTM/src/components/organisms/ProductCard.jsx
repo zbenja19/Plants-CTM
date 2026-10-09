@@ -3,29 +3,33 @@ import Image from '../atoms/Image';
 import Button from '../atoms/Button';
 import CardBody from '../molecules/CardBody';
 import { useNavigate } from 'react-router-dom';
-
+import "../../styles/organisms/ProductCard.css";
 
 function ProductCard({ product }) {
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
-
- return (
-   <Card style={{ width: '18rem' }} className="m-2">
-     <Image src={product.image} alt={product.name} className="card-img-top" />
-     <Card.Body>
-       <CardBody
-         title={product.name}
-         description={product.description}
-         price={product.price}
-         OriginalPrice={product.precioOriginal}
-       />
-       <Button variant="primary" onClick={() => navigate(`/products/${product.id}`)}>
-         Ver detalles
-       </Button>
-     </Card.Body>
-   </Card>
- );
+  return (
+    <Card className="productcard">
+      <Image
+        src={product.image}
+        alt={product.name}
+        className="productcard__image"
+      />
+      <CardBody
+        title={product.name}
+        description={product.description}
+        price={product.price}
+        OriginalPrice={product.precioOriginal}
+      >
+        <Button
+          variant="primary"
+          onClick={() => navigate(`/products/${product.id}`)}
+        >
+          Ver detalles
+        </Button>
+      </CardBody>
+    </Card>
+  );
 }
-
 
 export default ProductCard;

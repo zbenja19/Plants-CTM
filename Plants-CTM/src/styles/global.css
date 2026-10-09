@@ -5,7 +5,7 @@
 
 #root {
   min-height: 100vh;
-  background-color: #581b0379;
+  background-color: #ffff;
 }
 
 /*
@@ -22,7 +22,7 @@ Contenido de Hero "../src/components/organisms/Hero.jsx"
 }
 
 .hero__title {
-  color: #fff;
+  color: #000000;
   text-align: center;
 }
 

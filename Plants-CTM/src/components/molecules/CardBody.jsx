@@ -1,17 +1,21 @@
 import Text from '../atoms/Text';
 import PriceTag from '../atoms/PriceTag';
+import "../../styles/molecules/CardBody.css";
+import { Children } from 'react';
 
 
-function CardBody({ title, description, price, OriginalPrice}) {
+function CardBody({ title, description, price, OriginalPrice, children}) {
  return (
-   <>
-     <Text variant="h5">{title}</Text>
-     <Text variant="p">{description}</Text>
-     <Text variant="span" className="text-muted">
-     <PriceTag price={price} OriginalPrice={OriginalPrice} />
-    
-     </Text>
-   </>
+  <div className="cardbody">
+      <Text variant="h5" className="cardbody__title">{title}</Text>
+      <Text variant="p" className="cardbody__description">{description}</Text>
+     
+
+    <div className="cardbody__footer">
+      <PriceTag price={price} OriginalPrice={OriginalPrice} />
+      {children}
+    </div>
+  </div>
  );
 }
 

@@ -5,6 +5,7 @@ import ProductCard from '../components/organisms/ProductCard';
 import SearchBar from '../components/molecules/SearchBar';
 import CategoryFilter from '../components/molecules/CategoryFilter';
 import PriceFilter from '../components/molecules/PriceFilter';
+import ProductGrid from '../components/organisms/ProductGrid';
 
 function Products() {
   const precios = products.map((p) => p.price);
@@ -57,18 +58,13 @@ function Products() {
             onToggle={toggleCategoria}
           />
         </Col>
-        <Col md={9}>
-          <Row>
-            {filtrados.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))} 
-          </Row>
+         <Col md={9}>
+          <ProductGrid products={filtrados} />
         </Col>
       </Row>
-   </Container>
- );
+    </Container>
+  );
 }
-
 
 export default Products;
 
